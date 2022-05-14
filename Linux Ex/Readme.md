@@ -32,3 +32,8 @@
     ![Screenshot from 2022-05-14 10-18-45](https://user-images.githubusercontent.com/78868769/168411133-ae3acc1d-65e1-4863-9629-6f09f9edee15.png)
 
 
+### Varients of <code>cp</code>
+
+
+* Syntax : <code>cp [options] source desination</code>
+
