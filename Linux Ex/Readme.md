@@ -16,15 +16,15 @@
     
 * <code>ls -lb</code> : list files in human readable form
 
-![Screenshot from 2022-05-14 10-15-57](https://user-images.githubusercontent.com/78868769/168411097-051b6b6b-7fa2-4e60-a73e-a776c12b951a.png)
+    ![Screenshot from 2022-05-14 10-15-57](https://user-images.githubusercontent.com/78868769/168411097-051b6b6b-7fa2-4e60-a73e-a776c12b951a.png)
 
 * <code>ls -F</code> : list files and direc with '/' char at the end
 
-![Screenshot from 2022-05-14 10-16-19](https://user-images.githubusercontent.com/78868769/168411106-578c3185-7c4c-4278-9f89-922d4e1a2c62.png)
+    ![Screenshot from 2022-05-14 10-16-19](https://user-images.githubusercontent.com/78868769/168411106-578c3185-7c4c-4278-9f89-922d4e1a2c62.png)
 
 * <code>ls -r</code> : list files in reverse order
 
-![Screenshot from 2022-05-14 10-16-55](https://user-images.githubusercontent.com/78868769/168411111-d60129b7-8331-45d0-bfb0-fcefcbadb196.png)
+    ![Screenshot from 2022-05-14 10-16-55](https://user-images.githubusercontent.com/78868769/168411111-d60129b7-8331-45d0-bfb0-fcefcbadb196.png)
 
 * <code>ls --help</code> : shows ls command help page
 
