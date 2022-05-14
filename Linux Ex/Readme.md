@@ -1,6 +1,7 @@
 # Solution of Exercise of Linux
 
 ## Solution 1 :
+### Varients of <code>ls</code> command
 
 * <code>ls</code> : List all directries
   
@@ -29,3 +30,5 @@
 * <code>ls --help</code> : shows ls command help page
 
     ![Screenshot from 2022-05-14 10-18-45](https://user-images.githubusercontent.com/78868769/168411133-ae3acc1d-65e1-4863-9629-6f09f9edee15.png)
+
+
