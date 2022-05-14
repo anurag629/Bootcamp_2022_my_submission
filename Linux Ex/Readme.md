@@ -46,3 +46,15 @@
     * <code>cp -R</code> : recursive copy
     * <code>cp -u</code> : update
     * <code>cp -v</code> : print information message
+
+* Copy sigle file to directory :
+    
+    <code>cp hello.c temp</code>
+
+* Copy multiple files :
+
+    <code>cp hello.c sum.c temp</code>
+
+* Copy all files :
+
+    <code>cp *.c temp</code>
