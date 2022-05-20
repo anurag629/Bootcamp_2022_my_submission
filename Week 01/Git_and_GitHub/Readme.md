@@ -7,7 +7,8 @@
 * created and switched to new branch
 
   ![Screenshot from 2022-05-20 18-20-07](https://user-images.githubusercontent.com/78868769/169531675-ce0d6a8f-7da2-4faf-b2e2-eabd1f1f4133.png)
-Compile the C program with debugging option -g
+  
+* Compile the C program with debugging option -g
 * compling swap.c file
 
   ![Screenshot from 2022-05-20 18-31-06](https://user-images.githubusercontent.com/78868769/169533617-a3f7063b-5bfc-4713-927e-5af91ddbf055.png)
