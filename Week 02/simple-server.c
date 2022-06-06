@@ -1,48 +1,74 @@
 /* A simple server in the internet domain using TCP
    The port number is passed as an argument */
-#include <iostream>
-#include <string.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <unistd.h>
 
-using namespace std;
+void error(char *msg)
+{
+    perror(msg);
+    exit(1);
+}
 
 int main(int argc, char *argv[])
 {
-    int client, server;
-    int portNum = atoi(argv[1]);
-    bool isExit = false;
-    int bufsize = 1024;
-    char buffer[bufsize];
-
-    struct sockadde_in server_addr;
-    socklen_t size;
-
-    // Creating socket connection
-
-    client = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (client < 0)
+    int sockfd, newsockfd, portno, clilen;
+    char buffer[256];
+    struct sockaddr_in serv_addr, cli_addr;
+    int n;
+    if (argc < 2)
     {
-        cout << "\n Error in creating socket...." << endl;
+        fprintf(stderr, "ERROR, no port provided\n");
         exit(1);
     }
 
-    cout << "\n Socket server has been created...." << endl;
+    /* create socket */
 
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = htons(INADDR_ANY);
-    server_addr.sin_port = htons(portNum);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+        error("ERROR opening socket");
 
-    // Binding the socket using socket() function
+    /* fill in port number to listen on. IP address can be anything (INADDR_ANY) */
 
-    if (bind(client, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
-    {
-        cout << "Error in binding connection, the socket hasalready been established....." << endl;
-        return -1;
-    }
+    bzero((char *)&serv_addr, sizeof(serv_addr));
+    portno = atoi(argv[1]);
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(portno);
+
+    /* bind socket to this port number on this machine */
+
+    if (bind(sockfd, (struct sockaddr *)&serv_addr,
+             sizeof(serv_addr)) < 0)
+        error("ERROR on binding");
+
+    /* listen for incoming connection requests */
+
+    listen(sockfd, 5);
+    clilen = sizeof(cli_addr);
+
+    /* accept a new request, create a newsockfd */
+
+    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
+    if (newsockfd < 0)
+        error("ERROR on accept");
+
+    /* read message from client */
+
+    bzero(buffer, 256);
+    n = read(newsockfd, buffer, 255);
+    if (n < 0)
+        error("ERROR reading from socket");
+    printf("Here is the message: %s\n", buffer);
+
+    /* send reply to client */
+
+    n = write(newsockfd, "I got your message", 18);
+    if (n < 0)
+        error("ERROR writing to socket");
+    return 0;
 }
