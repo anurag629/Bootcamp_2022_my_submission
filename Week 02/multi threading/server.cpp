@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main(int argc, *argv[])
+int main(int argc, const char *argv[])
 {
     int clientSocket[50];
     int PORT;
@@ -23,12 +23,13 @@ int main(int argc, *argv[])
     int newSocket;
     int valread;
     int i;
+    int sd;
     int addrlen;
     int opt = TRUE;
 
     fd_set readfds;
     char buffer[1024];
-    char *message = "You have connected to server.....\n";
+    const char *message = "You have connected to server.....\n";
 
     cout << "Please enter port number : ";
     cin >> PORT;
@@ -105,11 +106,62 @@ int main(int argc, *argv[])
 
         if (FD_ISSET(serverSocket, &readfds))
         {
-            if ((newSocket = accept(serverSocket, (struct socketaddr *)&addr, (socklen_t *)&addrlen)) < 0)
+            if ((newSocket = accept(serverSocket, (struct sockaddr *)&addr, (socklen_t *)&addrlen)) < 0)
             {
                 cerr << "Accept" << endl;
             }
-            cout << "New connection, socket fd : " << newSocket << " ip is : " << inet_ntoa(addr.sin_addr) << " port : " << ntohs(addr.sin_addr) << endl;
+            cout << "New connection, socket fd : " << newSocket << " ip is : " << inet_ntoa(addr.sin_addr) << " port : " << PORT << endl;
+            if (send(newSocket, message, strlen(message), 0) != strlen(message))
+            {
+                cerr << "Send Error" << endl;
+            }
+
+            for (i = 0; i < max_clients; i++)
+            {
+                if (clientSocket[i] == 0)
+                {
+                    clientSocket[i] = newSocket;
+                    break;
+                }
+            }
+        }
+
+        for (i = 0; i < max_clients; i++)
+        {
+            sd = clientSocket[i];
+            if (FD_ISSET(sd, &readfds))
+            {
+                memset(buffer, 0, 1024);
+                int bytesRecieved = recv(sd, buffer, 1024, 0);
+                if (bytesRecieved == -1)
+                {
+                    cerr << "Error in recieving " << endl;
+                    break;
+                }
+                if (bytesRecieved == 0)
+                {
+                    close(sd);
+                    clientSocket[i] = 0;
+                    cout << "Client Disconnected" << endl;
+                    break;
+                }
+                else
+                {
+                    if (bytesRecieved > 0)
+                    {
+                        cout << "Client [" << i << "]: " << string(buffer, 0, bytesRecieved) << endl;
+                    }
+                    for (i = 0; i < max_clients; i++)
+                    {
+                        sd = clientSocket[i];
+                        if (sd != 0)
+                        {
+                            send(sd, buffer, strlen(buffer), 0);
+                        }
+                    }
+                }
+            }
         }
     }
+    return 0;
 }
