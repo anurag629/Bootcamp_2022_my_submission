@@ -31,7 +31,7 @@ void *pthread_fn(void *newsock)
         /* read message from client */
         bzero(buffer, 256);
         n = read(newsockfd, buffer, 255);
-        printf("read return code:%d\n", n);
+
         if (n < 0)
         {
             error("ERROR reading from socket");
