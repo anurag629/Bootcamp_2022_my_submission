@@ -7,3 +7,6 @@ DEPS = functions.h
 
 main: factorial.o main.o hello.o 
 	$(CC) -o main factorial.o main.o hello.o
+
+clean:
+	rm *.o
