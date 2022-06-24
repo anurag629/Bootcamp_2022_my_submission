@@ -4,22 +4,26 @@
 #include <iostream>
 using namespace std;
 
-struct HTTP_Request {
+struct HTTP_Request
+{
   string HTTP_version;
 
   string method;
   string url;
 
+  // TODO : Add more fields if and when needed
 
   HTTP_Request(string request); // Constructor
 };
 
-struct HTTP_Response {
+struct HTTP_Response
+{
   string HTTP_version; // 1.0 for this assignment
 
   string status_code; // ex: 200, 404, etc.
   string status_text; // ex: OK, Not Found, etc.
 
+  string date; // current date to return
   string content_type;
   string content_length;
 
@@ -27,7 +31,6 @@ struct HTTP_Response {
 
   // set whether connection is closed or alive
   string connection;
-
 
   string get_string(); // Returns the string representation of the HTTP Response
 };

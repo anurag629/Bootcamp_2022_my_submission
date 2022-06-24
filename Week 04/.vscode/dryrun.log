@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/anurag/Work/Bootcamp_2022_my_submission/Week 04'
+g++ -Wno-write-strings -pthread simple_server.cpp http_server.cpp -o server  
+make: Leaving directory '/home/anurag/Work/Bootcamp_2022_my_submission/Week 04'
+ 
