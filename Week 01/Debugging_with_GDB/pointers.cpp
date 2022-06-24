@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     cout << *p << endl;
 
     p = q;
-    cout << *p << endl;
+    cout << p << endl;
 
     p = &b;
     cout << *p << endl;
